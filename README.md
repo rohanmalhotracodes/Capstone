@@ -6,6 +6,12 @@ Solar Sweeper is a polished frontend demo for a solar-panel monitoring and auton
 
 The demo runs entirely in the browser with mock services, but the code is organized so it can later connect to FastAPI REST endpoints, WebSocket telemetry, MQTT data processed by the backend, PostgreSQL, and WeatherAPI.
 
+## Live Demo
+
+Hosted on Hugging Face Spaces:
+
+https://huggingface.co/spaces/rohanmalhotracodes/solar-sweeper
+
 ## Screenshots
 
 ### Overview Dashboard
