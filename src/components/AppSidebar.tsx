@@ -1,5 +1,4 @@
 import {
-  AlertTriangle,
   BarChart3,
   Bell,
   Bot,
@@ -102,10 +101,6 @@ export function AppSidebar({ mobileOpen, onCloseMobile }: AppSidebarProps) {
             <LogOut className="h-4 w-4" />
             Logout
           </button>
-          <div className="mt-4 flex items-center gap-2 rounded-lg bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-200">
-            <AlertTriangle className="h-4 w-4" />
-            REST + WebSocket mock mode
-          </div>
         </div>
       </aside>
     </>

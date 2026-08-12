@@ -131,7 +131,7 @@ export function TelemetryPage() {
     <div>
       <PageHeader
         title="Live Telemetry"
-        description="Mock WebSocket telemetry stream for voltage, current, panel temperature, irradiance, efficiency, and power-loss detection."
+        description="Live telemetry stream for voltage, current, panel temperature, irradiance, efficiency, and power-loss detection."
         actions={
           <>
             <LiveIndicator live={connected} />

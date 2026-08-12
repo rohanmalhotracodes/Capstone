@@ -3,7 +3,6 @@ import {
   BatteryCharging,
   Bot,
   Building2,
-  ChevronRight,
   CircleGauge,
   Gauge,
   PanelsTopLeft,
@@ -13,7 +12,6 @@ import { useMemo, useState } from "react";
 import { Area, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ChartCard } from "../components/ChartCard";
 import { Drawer } from "../components/Drawer";
-import { LiveIndicator } from "../components/LiveIndicator";
 import { LoadingSkeleton } from "../components/LoadingSkeleton";
 import { PageHeader } from "../components/PageHeader";
 import { StatCard } from "../components/StatCard";
@@ -40,7 +38,6 @@ export function OverviewPage() {
       <PageHeader
         title="Solar Sweeper"
         description="Autonomous Solar Panel Monitoring & Cleaning Platform"
-        actions={<LiveIndicator live label="REST + WebSocket Mock Online" />}
       />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
@@ -234,26 +231,6 @@ export function OverviewPage() {
         </section>
       </div>
 
-      <footer className="mt-6 rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-card">
-        <div className="grid gap-3 md:grid-cols-5">
-          <SystemInfo label="Frontend" value="React + Vite" />
-          <SystemInfo label="Backend" value="FastAPI" />
-          <SystemInfo label="Messaging" value="Mosquitto MQTT" />
-          <SystemInfo label="Database" value="PostgreSQL" />
-          <SystemInfo label="Deployment" value="Docker" />
-        </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
-          {["Solar / Edge Devices", "Mosquitto MQTT Broker", "FastAPI Subscriber", "Processing / Validation", "PostgreSQL", "REST + WebSocket", "React Dashboard"].map(
-            (step, index, items) => (
-              <span key={step} className="inline-flex items-center gap-2">
-                {step}
-                {index < items.length - 1 ? <ChevronRight className="h-4 w-4 text-slate-400" /> : null}
-              </span>
-            )
-          )}
-        </div>
-      </footer>
-
       <Drawer open={Boolean(selectedSite)} title={selectedSite?.name ?? "Site Detail"} onClose={() => setSelectedSite(null)}>
         {selectedSite ? (
           <div className="space-y-4">
@@ -286,15 +263,6 @@ function GaugeMetric({ label, value }: { label: string; value: string }) {
     <div className="flex items-center justify-between gap-4 rounded-lg bg-slate-50 p-3">
       <span className="text-sm text-slate-500">{label}</span>
       <span className="text-right text-sm font-bold text-slate-900">{value}</span>
-    </div>
-  );
-}
-
-function SystemInfo({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <p className="text-xs font-semibold uppercase text-slate-400">{label}</p>
-      <p className="mt-1 font-bold text-slate-900">{value}</p>
     </div>
   );
 }

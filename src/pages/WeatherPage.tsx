@@ -24,7 +24,7 @@ export function WeatherPage() {
     <div>
       <PageHeader
         title="Weather"
-        description="Mock WeatherAPI-ready view connecting cloud cover, precipitation probability, wind, irradiance, and cleaning recommendations."
+        description="Site weather view connecting cloud cover, precipitation probability, wind, irradiance, and cleaning recommendations."
       />
 
       <div className="grid gap-4 xl:grid-cols-3">

@@ -29,7 +29,7 @@ export function SettingsPage() {
     <div>
       <PageHeader
         title="Settings"
-        description="Frontend mock settings shaped for future FastAPI REST, WebSocket telemetry, MQTT subscriber, PostgreSQL, and WeatherAPI integration."
+        description="Dashboard preferences, telemetry connection values, weather source, and notification options."
       />
       <form onSubmit={handleSubmit} className="grid gap-6 xl:grid-cols-2">
         <SettingsSection icon={SlidersHorizontal} title="General">
@@ -96,20 +96,20 @@ export function SettingsPage() {
             </Field>
           </div>
           <p className="mt-4 rounded-lg bg-slate-50 p-3 text-sm leading-6 text-slate-600">
-            Browser clients do not connect directly to Mosquitto. FastAPI subscribes to MQTT, validates messages, writes PostgreSQL records, and streams updates through REST and WebSocket endpoints.
+            Telemetry is simulated in this demo. These values are placeholders for the production data pipeline.
           </p>
         </SettingsSection>
 
         <SettingsSection icon={Database} title="API Configuration">
           <div className="grid gap-4">
-            <Field label="FastAPI Base URL">
+            <Field label="API Base URL">
               <input
                 value={draft.apiBaseUrl}
                 onChange={(event) => setDraft({ ...draft, apiBaseUrl: event.target.value })}
                 className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none"
               />
             </Field>
-            <Field label="WebSocket">
+            <Field label="Telemetry Stream URL">
               <input
                 value={draft.websocketUrl}
                 onChange={(event) => setDraft({ ...draft, websocketUrl: event.target.value })}

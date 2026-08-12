@@ -209,26 +209,6 @@ POST /api/robots/:id/start-cleaning
 GET  /api/weather/:siteId
 ```
 
-## Intended Backend Architecture
-
-The React frontend should communicate with FastAPI through REST and WebSocket endpoints. The browser should not connect directly to MQTT.
-
-```text
-Solar / Edge Devices
-        ↓
-Mosquitto MQTT Broker
-        ↓
-FastAPI MQTT Subscriber
-        ↓
-Processing / Validation
-        ↓
-PostgreSQL
-        ↓
-FastAPI REST + WebSocket
-        ↓
-React Dashboard
-```
-
 ## Replacing Mocks With Real Integrations
 
 - Replace `mockDelay` calls in `src/services/api.ts` with real `fetch` requests.
