@@ -24,10 +24,38 @@ import { formatMw, formatPercent } from "../utils/format";
 const timeframeOptions: Timeframe[] = ["Today", "7 Days", "30 Days"];
 
 export function OverviewPage() {
-  const { loading, summary, sites, activities } = useSolarData();
+  const { loading, summary, sites, robots, activities } = useSolarData();
   const [timeframe, setTimeframe] = useState<Timeframe>("Today");
   const [selectedSite, setSelectedSite] = useState<SolarSite | null>(null);
   const generationData = useMemo(() => generateGenerationSeries(timeframe), [timeframe]);
+  const prioritySite = useMemo(() => {
+    const activeRowTargetSiteIds = new Set(
+      robots
+        .filter((robot) => ["Cleaning", "Paused"].includes(robot.status) && robot.section.startsWith("Row"))
+        .map((robot) => robot.currentSiteId)
+    );
+    const actionableSites = sites.filter((site) => activeRowTargetSiteIds.has(site.id));
+    const candidates = actionableSites.length > 0 ? actionableSites : sites.filter((site) => site.health !== "Offline");
+
+    return candidates.reduce<SolarSite | null>(
+      (highest, site) => (!highest || site.powerLossPct > highest.powerLossPct ? site : highest),
+      null
+    );
+  }, [robots, sites]);
+  const prioritySections = useMemo(() => {
+    if (!prioritySite) {
+      return [];
+    }
+
+    return robots
+      .filter((robot) => robot.currentSiteId === prioritySite.id && ["Cleaning", "Paused"].includes(robot.status) && robot.section.startsWith("Row"))
+      .map((robot) => robot.section);
+  }, [prioritySite, robots]);
+  const prioritySiteLabel = prioritySite?.shortName ?? "highest-loss site";
+  const priorityTargetLabel =
+    prioritySections.length > 1
+      ? `Rows ${prioritySections.map((section) => section.replace(/^Row\s+/, "")).join(", ")}`
+      : prioritySections[0] ?? prioritySite?.name ?? "highest-loss array";
 
   if (loading) {
     return <LoadingSkeleton />;
@@ -68,8 +96,8 @@ export function OverviewPage() {
         <StatCard
           title="Estimated Power Loss"
           value={formatPercent(summary.estimatedPowerLossPct)}
-          subtitle="Soiling-adjusted"
-          trend="Cleaning recommended"
+          subtitle={priorityTargetLabel}
+          trend={`Clean ${prioritySiteLabel}`}
           icon={CircleGauge}
           tone="amber"
         />
@@ -143,7 +171,7 @@ export function OverviewPage() {
               <h2 className="text-base font-bold text-slate-950">Estimated Soiling Loss</h2>
               <p className="mt-1 text-sm text-slate-500">Recoverable output from cleaning action</p>
             </div>
-            <StatusBadge status="Cleaning Recommended" />
+            <StatusBadge status={`Clean ${prioritySiteLabel}`} />
           </div>
           <div className="mt-6 flex flex-col items-center">
             <div
@@ -160,8 +188,10 @@ export function OverviewPage() {
           </div>
           <div className="mt-6 grid gap-3 text-sm">
             <GaugeMetric label="Recoverable Power" value="356 kW" />
+            <GaugeMetric label="Clean Site" value={prioritySite?.name ?? "Highest-loss site"} />
+            <GaugeMetric label="Target Rows" value={priorityTargetLabel} />
             <GaugeMetric label="Last Cleaned" value="3 days ago" />
-            <GaugeMetric label="Next Recommended" value="Within 24 hours" />
+            <GaugeMetric label="Start By" value="Within 24 hours" />
           </div>
         </section>
       </div>

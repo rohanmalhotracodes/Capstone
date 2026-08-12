@@ -75,7 +75,7 @@ export const solarSites: SolarSite[] = [
     currentProductionMw: 0.41,
     expectedProductionMw: 0.52,
     powerLossPct: calculatePowerLossPct(0.52, 0.41),
-    cleaningStatus: "Cleaning recommended",
+    cleaningStatus: "Clean rows G-12 and G-15",
     weatherCondition: "Dust Haze",
     health: "Power Loss",
     ambientTempC: 36,

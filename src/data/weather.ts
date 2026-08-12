@@ -103,7 +103,7 @@ export const weatherSnapshots: WeatherSnapshot[] = [
     windKph: 18,
     precipitationChancePct: 4,
     irradianceWm2: 875,
-    recommendation: "Low rain probability and high dust accumulation detected. Cleaning recommended within 24 hours.",
+    recommendation: "Low rain probability and high dust accumulation detected. Clean rows G-12 and G-15 within 24 hours.",
     forecast: forecast(4)
   },
   {
