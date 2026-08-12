@@ -19,19 +19,19 @@ const toneClasses = {
 
 export function StatCard({ title, value, subtitle, trend, icon: Icon, tone = "blue" }: StatCardProps) {
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-4 shadow-card">
+    <article className="flex min-h-44 flex-col rounded-lg border border-slate-200 bg-white p-4 shadow-card">
       <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-sm font-medium text-slate-500">{title}</p>
-          <p className="mt-2 text-2xl font-bold text-slate-950">{value}</p>
+        <div className="min-w-0">
+          <p className="break-words text-sm font-medium leading-5 text-slate-500">{title}</p>
+          <p className="mt-2 break-words text-2xl font-bold leading-tight text-slate-950">{value}</p>
         </div>
-        <span className={`rounded-lg p-2.5 ${toneClasses[tone]}`}>
+        <span className={`flex-none rounded-lg p-2.5 ${toneClasses[tone]}`}>
           <Icon className="h-5 w-5" />
         </span>
       </div>
-      <div className="mt-4 flex items-center justify-between gap-3 text-sm">
-        <span className="font-semibold text-slate-700">{trend}</span>
-        <span className="text-right text-slate-500">{subtitle}</span>
+      <div className="mt-auto space-y-1.5 pt-4 text-sm">
+        <p className="break-words font-semibold leading-5 text-slate-700">{trend}</p>
+        <p className="break-words leading-5 text-slate-500">{subtitle}</p>
       </div>
     </article>
   );

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useSolarData } from "../hooks/useSolarData";
-import { LiveIndicator } from "./LiveIndicator";
 
 interface TopNavbarProps {
   title: string;
@@ -40,7 +39,6 @@ export function TopNavbar({ title, onOpenSidebar }: TopNavbarProps) {
           className="ml-2 w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
         />
       </div>
-      <LiveIndicator live label="System Healthy" />
       <button
         type="button"
         aria-label="Open alerts"
